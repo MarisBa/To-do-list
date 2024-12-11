@@ -1,35 +1,231 @@
-@import './base.css';
-
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
+:root {
+  --primary: #007BFF;
+  --secondary: #6C757D;
+  --background: #F8F9FA;
+  --text: #212529;
+  --white: #FFFFFF;
+  --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  --transition: 0.2s ease;
+  --radius: 8px;
+  --spacing: 1rem;
+  --work-color: #DFF5E1; /* Light green for work */
+  --personal-color: #FADBD8; /* Light red for personal */
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--background);
+  color: var(--text);
+  margin: 0;
+  padding: 0;
 }
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
+.app {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: var(--spacing);
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+h2, h3 {
+  font-weight: 600;
+}
+
+.greeting {
+  text-align: center;
+  margin-bottom: var(--spacing);
+}
+
+.greeting input {
+  margin-left: 0.5rem;
+  font-size: 1.1rem;
+  border: none;
+  border-bottom: 2px solid var(--primary);
+  transition: var(--transition);
+  outline: none;
+}
+
+.greeting input:focus {
+  border-bottom-color: var(--secondary);
+}
+
+.create-todo {
+  margin-bottom: var(--spacing);
+}
+
+.create-todo input[type="text"] {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--secondary);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  outline: none;
+  transition: var(--transition);
+}
+
+.create-todo input[type="text"]:focus {
+  border-color: var(--primary);
+}
+
+.create-todo .options {
+  display: flex;
+  justify-content: space-around;
+  margin: var(--spacing) 0;
+}
+
+.create-todo .options label {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: var(--transition);
+}
+
+.create-todo .options label:hover {
+  transform: scale(1.1);
+}
+
+/* Add container styles for work and personal categories */
+.create-todo .container {
+  padding: var(--spacing);
+  margin: var(--spacing) 0;
+  border-radius: var(--radius);
+  background-color: var(--white);
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+/* Work container styles */
+.create-todo .container.work {
+  border-left: 4px solid #28A745; /* Green for work */
+}
+
+/* Personal container styles */
+.create-todo .container.personal {
+  border-left: 4px solid #DC3545; /* Red for personal */
+}
+
+/* Add hover animation */
+.create-todo .container:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Add animations to the bubbles for a smoother appearance */
+@keyframes bubble-fade-in {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
   }
 }
 
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
+.create-todo .bubble {
+  animation: bubble-fade-in 0.3s ease-out;
+}
 
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
+.create-todo .bubble {
+  margin-right: 1rem;
+}
+
+.create-todo .bubble.work {
+  background-color: #28A745;
+}
+
+.create-todo .bubble.personal {
+  background-color: #DC3545;
+}
+
+.create-todo button {
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--primary);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-weight: bold;
+  transition: var(--transition);
+}
+
+.create-todo button:hover {
+  background: var(--secondary);
+}
+
+.todo-list {
+  margin-top: var(--spacing);
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing);
+  margin-bottom: 0.5rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+}
+
+.todo-item.work {
+  background: var(--work-color);
+}
+
+.todo-item.personal {
+  background: var(--personal-color);
+}
+
+.todo-item:hover {
+  transform: translateY(-3px);
+}
+
+/* Style for the checkboxes */
+.todo-item input[type="checkbox"] {
+  margin-right: var(--spacing);
+  border: 2px solid var(--secondary);
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+}
+
+/* Change border color for work and personal categories */
+.todo-item.work input[type="checkbox"] {
+  border-color: #DC3545; /* Red border for work */
+}
+
+.todo-item.personal input[type="checkbox"] {
+  border-color: #007BFF; /* Blue border for personal */
+}
+
+.todo-item .content input {
+  border: none;
+  background: transparent;
+  font-size: 1rem;
+  flex: 1;
+  outline: none;
+}
+
+.todo-item .delete {
+  background: var(--secondary);
+  color: var(--white);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.todo-item .delete:hover {
+  background: var(--primary);
+}
+
+.todo-item.done .content input {
+  text-decoration: line-through;
+  color: var(--secondary);
 }
